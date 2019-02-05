@@ -29,7 +29,6 @@ function createMainWindow() {
     Menu.setApplicationMenu(mainMenu);
 
     mainWindow = new BrowserWindow();
-    // mainWindow.loadURL(`file://${__dirname}/views/index.html`);
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'views/index.html'),
         protocol: 'file',
