@@ -2,9 +2,29 @@ console.log('Initializing electron app...');
 
 const { app, BrowserWindow } = require('electron');
 
-let mainWindow = null;
-app.on('ready', () => {
-    const {session} = require('electron')
+let mainWindow;
+app.on('ready', createMainWindow);
+
+
+app.on('window-all-closed', function () {
+    // On macOS it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+})
+
+app.on('activate', function () {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (mainWindow === null) {
+        createMainWindow()
+    }
+})
+
+
+function createMainWindow() {
+    // const {session} = require('electron')
     // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
     //     callback({ responseHeaders: Object.assign({
     //         "Content-Security-Policy": [ "default-src 'self'" ]
@@ -26,4 +46,9 @@ app.on('ready', () => {
         // }
     });
     mainWindow.loadURL(`file://${__dirname}/views/index.html`);
-});
+
+    mainWindow.on('closed', () => {
+        console.log('Closing app...');
+        mainWindow = null
+    });
+}
