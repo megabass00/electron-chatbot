@@ -16,6 +16,6 @@ git clone https://github.com/megabass00/electron-chatbot.git
 
 # Run the app
 npm start
-~~~
+~~~~
 
 Also you can build the app for platform you wish from run scripts (package.json).
