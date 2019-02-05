@@ -1,27 +1,15 @@
 // imports
 const apiai = require('apiai')('9a638e79385a4377b4d307b1cd3b1940');
 
-
 // initialize webspeech
+if (window.SpeechRecognition === null ){
+    console.log("Speech Recognition is not supported.");
+}else {
+    console.log('Speech Recognition is working!!!');
+}
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-// const socket = io();
 console.log(recognition ? 'SpeechRecognition initialized' : 'Error initializing SpeechRecognition');
-
-// config webspeech
-recognition.lang = 'es-ES';
-recognition.interimResults = false;
-recognition.continuous = true;
-
-recognition.onstart = () => { console.log('Recognition START') }
-recognition.onresult = () => { console.log('Recognition RESULTS') }
-recognition.onerror = () => { console.log('Recognition ERROR') }
-recognition.onend = () => { 
-    console.log('Recognition END');
-    talkBtn.style.display = 'inline';
-    stopBtn.style.display = 'none';
-}
-
 
 // DOM elements
 const breakLine = '<br>';
@@ -32,6 +20,22 @@ stopBtn.style.display = 'none';
 var conversation = document.getElementById('conversation');
 var messageInput = document.getElementById('write-message');
 messageInput.focus();
+
+// config webspeech
+recognition.lang = 'es-ES';
+recognition.language = 'Spanish';
+recognition.interimResults = false;
+recognition.continuous = true;
+
+recognition.onstart = () => { console.log('Recognition START') }
+recognition.onresult = () => { console.log('Recognition RESULTS') }
+recognition.onerror = (e) => { console.log('Recognition ERROR', e.error) }
+recognition.onend = () => { 
+    talkBtn.style.display = 'inline';
+    stopBtn.style.display = 'none';
+    console.log('Recognition END');
+}
+
 
 // events
 talkBtn.addEventListener('click', () => {

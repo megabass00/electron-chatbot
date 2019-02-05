@@ -1,6 +1,7 @@
 console.log('Initializing electron app...');
-
 const { app, BrowserWindow, Menu } = require('electron');
+const url = require('url');
+const path = require('path');
 
 let mainWindow;
 app.on('ready', createMainWindow);
@@ -28,7 +29,12 @@ function createMainWindow() {
     Menu.setApplicationMenu(mainMenu);
 
     mainWindow = new BrowserWindow();
-    mainWindow.loadURL(`file://${__dirname}/views/index.html`);
+    // mainWindow.loadURL(`file://${__dirname}/views/index.html`);
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'views/index.html'),
+        protocol: 'file',
+        slashes: true
+    }));
 
     mainWindow.on('closed', () => {
         console.log('Closing app...');
