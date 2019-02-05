@@ -1,16 +1,17 @@
 {
-  "name": "chatbot-nodejs",
+  "name": "electron-chatbot",
   "version": "1.0.0",
-  "description": "Chatbot in NodeJS, Express and Socket.io",
+  "description": "Chatbot build with NodeJS, Express and Socket.io, running into electron",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/megabass00/chatbot-nodejs.git"
+    "url": "git+https://github.com/megabass00/electron-chatbot.git"
   },
   "keywords": [
+    "electron",
     "chatbot",
     "nodejs",
     "express",
@@ -19,15 +20,13 @@
   "author": "megabass00",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/megabass00/chatbot-nodejs/issues"
+    "url": "https://github.com/megabass00/electron-chatbot/issues"
   },
-  "homepage": "https://github.com/megabass00/chatbot-nodejs#readme",
+  "homepage": "https://github.com/megabass00/electron-chatbot#readme",
   "dependencies": {
     "apiai": "^4.0.3",
     "express": "^4.16.4",
     "socket.io": "^2.2.0"
   },
-  "devDependencies": {
-    "nodemon": "^1.18.9"
-  }
+  "devDependencies": {}
 }
