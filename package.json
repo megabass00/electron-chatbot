@@ -1,0 +1,33 @@
+{
+  "name": "chatbot-nodejs",
+  "version": "1.0.0",
+  "description": "Chatbot in NodeJS, Express and Socket.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/megabass00/chatbot-nodejs.git"
+  },
+  "keywords": [
+    "chatbot",
+    "nodejs",
+    "express",
+    "socket.io"
+  ],
+  "author": "megabass00",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/megabass00/chatbot-nodejs/issues"
+  },
+  "homepage": "https://github.com/megabass00/chatbot-nodejs#readme",
+  "dependencies": {
+    "apiai": "^4.0.3",
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
