@@ -1,6 +1,6 @@
 console.log('Initializing electron app...');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 let mainWindow;
 app.on('ready', createMainWindow);
@@ -24,31 +24,48 @@ app.on('activate', function () {
 
 
 function createMainWindow() {
-    // const {session} = require('electron')
-    // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    //     callback({ responseHeaders: Object.assign({
-    //         "Content-Security-Policy": [ "default-src 'self'" ]
-    //     }, details.responseHeaders)});
-    // });
-    // session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    //     callback({
-    //         responseHeaders: {
-    //             ...details.responseHeaders,
-    //             'Content-Security-Policy': ['default-src \'none\'']
-    //         }
-    //     });
-    // });
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    Menu.setApplicationMenu(mainMenu);
 
-    mainWindow = new BrowserWindow({
-        // width: 800, height: 800,
-        // webPreferences: {
-        //     nodeIntegration: true
-        // }
-    });
+    mainWindow = new BrowserWindow();
     mainWindow.loadURL(`file://${__dirname}/views/index.html`);
 
     mainWindow.on('closed', () => {
         console.log('Closing app...');
         mainWindow = null
     });
+}
+
+
+const mainMenuTemplate = [
+    {
+        label: 'Options',
+        submenu: [
+            {
+                label: 'Created by megabass00',
+                click() {
+                    require('electron').shell.openExternal('https://github.com/megabass00/electron-chatbot');
+                }
+            },
+            {
+                label: 'Show Dev Tools',
+                accelerator: process.platform === 'darwin' ? 'command+D' : 'Ctrl+D',
+                click(e, focusedWindow) {
+                    focusedWindow.toggleDevTools();
+                }
+            },
+            {
+                label: 'Exit',
+                accelerator: process.platform === 'darwin' ? 'command+Q' : 'Ctrl+Q',
+                click() {
+                    app.quit();
+                }
+            }
+        ]
+    }
+]
+if (process.platform === 'darwin') {
+    mainMenuTemplate.unshift({
+        label: app.getName()
+    })
 }
