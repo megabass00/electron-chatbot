@@ -1,7 +1,7 @@
 {
   "name": "electron-chatbot",
   "version": "1.0.0",
-  "description": "Chatbot build with NodeJS, Express and Socket.io, running into electron",
+  "description": "Chatbot build with NodeJS and DialogFlow running into electron",
   "main": "index.js",
   "scripts": {
     "start": "electron ."
@@ -13,9 +13,7 @@
   "keywords": [
     "electron",
     "chatbot",
-    "nodejs",
-    "express",
-    "socket.io"
+    "nodejs"
   ],
   "author": "megabass00",
   "license": "ISC",
@@ -24,9 +22,7 @@
   },
   "homepage": "https://github.com/megabass00/electron-chatbot#readme",
   "dependencies": {
-    "apiai": "^4.0.3",
-    "express": "^4.16.4",
-    "socket.io": "^2.2.0"
+    "apiai": "^4.0.3"
   },
   "devDependencies": {
     "electron": "^4.0.4"

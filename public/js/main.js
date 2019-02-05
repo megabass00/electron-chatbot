@@ -1,7 +1,11 @@
+// imports
+const apiai = require('apiai')('9a638e79385a4377b4d307b1cd3b1940');
+
+
 // initialize webspeech
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-const socket = io();
+// const socket = io();
 console.log(recognition ? 'SpeechRecognition initialized' : 'Error initializing SpeechRecognition');
 
 // config webspeech
@@ -12,7 +16,11 @@ recognition.continuous = true;
 recognition.onstart = () => { console.log('Recognition START') }
 recognition.onresult = () => { console.log('Recognition RESULTS') }
 recognition.onerror = () => { console.log('Recognition ERROR') }
-recognition.onend = () => { console.log('Recognition END') }
+recognition.onend = () => { 
+    console.log('Recognition END');
+    talkBtn.style.display = 'inline';
+    stopBtn.style.display = 'none';
+}
 
 
 // DOM elements
@@ -58,16 +66,6 @@ recognition.addEventListener('result', (e) => {
 });
 
 
-// socket config
-socket.on('bot reply', function(replyText) {
-    recognition.stop();
-    talkBtn.style.display = 'inline';
-    stopBtn.style.display = 'none';
-    printMessage(replyText, true);
-    synthVoice(replyText);
-});
-
-
 // functions
 function sendMessage(text) {
     if (!text || text.length <= 0) {
@@ -75,9 +73,31 @@ function sendMessage(text) {
         return;
     }
     printMessage(text, false);
-    socket.emit('chat message', text);
+    // socket.emit('chat message', text);
     messageInput.focus();
     console.log('Sending message to server: ', text);
+    var sessionID = new Date().getTime();
+    // console.log('chat message', text, sessionID);
+
+    // get reply from DialogFlow
+    let apiaiReq = apiai.textRequest(text, {
+        sessionId: sessionID //APIAI_SESSION_ID
+    });
+
+    apiaiReq.on('response', (response) => {
+        let replyText = response.result.fulfillment.speech;
+        console.log('Bot reply', replyText);
+        recognition.stop();
+        talkBtn.style.display = 'inline';
+        stopBtn.style.display = 'none';
+        printMessage(replyText, true);
+        synthVoice(replyText);
+    });
+
+    apiaiReq.on('error', (error) => {
+        console.log(error);
+    });
+    apiaiReq.end();
 }
 
 function printMessage(text, isBot) {

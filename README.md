@@ -1,2 +1,2 @@
 # electron-chatbot
-Chatbot running into electron
+Chatbot build in NodeJS and running in electron integrating DialogFlow.

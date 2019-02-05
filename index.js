@@ -4,7 +4,7 @@ const { app, BrowserWindow } = require('electron');
 
 let mainWindow;
 app.on('ready', createMainWindow);
-
+ 
 
 app.on('window-all-closed', function () {
     // On macOS it is common for applications and their menu bar
